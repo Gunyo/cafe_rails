@@ -18,14 +18,19 @@ class CafeController < ApplicationController
 
   def update
     @item = MenuItem.find_by_name(params[:item_name])
-    @item.name = params[:name] if params[:name]
-    @item.price = params[:price] if params[:price]
-    @item.qty = params[:qty] if params[:qty]
-    @item.save 
+    @item.update(item_params)
+    # @item.name = params[:name] if params[:name]
+    # @item.price = params[:price] if params[:price]
+    # @item.qty = params[:qty] if params[:qty]
+    # @item.save 
     redirect_to show_item_path(@item.name)
   end
 
   def show
     @item = MenuItem.find_by_name(params[:item_name])
+  end
+
+  def item_params
+    params.permit(:name, :price, :qty)
   end
 end
