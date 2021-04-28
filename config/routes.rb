@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   root to: "cafe#index"
   get "/cafe", to: "cafe#about"
   post "/cafe", to: "cafe#create"
-  get "/cafe/:item_name", to: "cafe#show" 
+  get "/cafe/:item_name", to: "cafe#show", as: "show_item"
 end
