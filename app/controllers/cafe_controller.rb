@@ -1,6 +1,6 @@
 class CafeController < ApplicationController
   # IMPORTANT!! REMOVE FOR PRODUCTION!
-  skip_before_action :verify_authenticity_token, only: [:create, :update]
+  skip_before_action :verify_authenticity_token, only: [:create, :update, :destroy]
 
   def index
     @currency_symbol = "$"
@@ -12,7 +12,7 @@ class CafeController < ApplicationController
   end
 
   def create
-    @item = MenuItem.create(name: params[:name], price: params[:price].to_f, qty: 50)
+    @item = MenuItem.create(item_params)
     redirect_to show_item_path(@item.name)
   end
 
@@ -28,6 +28,12 @@ class CafeController < ApplicationController
 
   def show
     @item = MenuItem.find_by_name(params[:item_name])
+  end
+
+  def destroy
+    @item = MenuItem.find_by_name(params[:item_name])
+    @item.destroy
+    redirect_to root_path 
   end
 
   def item_params
