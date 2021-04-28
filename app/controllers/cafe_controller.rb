@@ -21,7 +21,7 @@ class CafeController < ApplicationController
     # @@menu[params[:name].to_sym] = params[:price].to_f
     # render json: @@menu
     @item = MenuItem.create(name: params[:name], price: params[:price].to_f, qty: 50)
-    redirect_t show_path(params[:name])
+    redirect_to show_item_path(@item.name)
   end
 
   def show
