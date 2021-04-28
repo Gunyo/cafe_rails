@@ -18,8 +18,9 @@ class CafeController < ApplicationController
   end
 
   def create
-    @@menu[params[:name].to_sym] = params[:price].to_f
-    render json: @@menu
+    # @@menu[params[:name].to_sym] = params[:price].to_f
+    # render json: @@menu
+    @item = MenuItem.create(name: params[:name], price: params[:price])
   end
 
   def show
