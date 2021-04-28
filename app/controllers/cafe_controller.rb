@@ -1,12 +1,6 @@
 class CafeController < ApplicationController
   # IMPORTANT!! REMOVE FOR PRODUCTION!
-  skip_before_action :verify_authenticity_token, only: [:create]
-
-  # @@menu = {
-  #   latte: 4.00,
-  #   scone: 5.00,
-  #   tea: 3.00,
-  # }
+  skip_before_action :verify_authenticity_token, only: [:create, :update]
 
   def index
     @currency_symbol = "$"
@@ -18,14 +12,20 @@ class CafeController < ApplicationController
   end
 
   def create
-    # @@menu[params[:name].to_sym] = params[:price].to_f
-    # render json: @@menu
     @item = MenuItem.create(name: params[:name], price: params[:price].to_f, qty: 50)
     redirect_to show_item_path(@item.name)
   end
 
+  def update
+    @item = MenuItem.find_by_name(params[:item_name])
+    @item.name = params[:name] if params[:name]
+    @item.price = params[:price] if params[:price]
+    @item.qty = params[:qty] if params[:qty]
+    @item.save 
+    redirect_to show_item_path(@item.name)
+  end
+
   def show
-    # @item = { name: params[:item_name], price: @@menu[params[:item_name].to_sym] }
     @item = MenuItem.find_by_name(params[:item_name])
   end
 end

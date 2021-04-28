@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   get "/cafe", to: "cafe#about"
   post "/cafe", to: "cafe#create"
   get "/cafe/:item_name", to: "cafe#show", as: "show_item"
+  patch "/cafe/:item_name", to: "cafe#update" 
+  put "/cafe/:item_name", to: "cafe#update" 
 end
